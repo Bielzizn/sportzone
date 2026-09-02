@@ -1,0 +1,1740 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SPORTZONE</title>
+
+<style>
+
+/* =====================================================
+   CONFIGURAÇÕES GERAIS
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#222;
+    color:white;
+}
+
+button{
+    font-family:inherit;
+    cursor:pointer;
+}
+
+.phone{
+    width:390px;
+    min-height:100vh;
+    margin:auto;
+    background:#0b0b0b;
+    overflow:hidden;
+    position:relative;
+    box-shadow:0 0 40px #000;
+}
+
+/* =====================================================
+   TOPO
+===================================================== */
+
+.topo{
+    height:65px;
+    background:#050505;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 15px;
+    border-bottom:1px solid #292929;
+    position:sticky;
+    top:0;
+    z-index:50;
+}
+
+.logo{
+    font-size:23px;
+    font-weight:900;
+    font-style:italic;
+}
+
+.logo span{
+    color:#e50909;
+}
+
+.icone{
+    background:none;
+    border:none;
+    color:white;
+    font-size:25px;
+}
+
+/* =====================================================
+   MENU LATERAL
+===================================================== */
+
+.menu{
+    position:fixed;
+    width:310px;
+    height:100%;
+    top:0;
+    left:0;
+    background:#101010;
+    z-index:100;
+    transform:translateX(-100%);
+    transition:.3s;
+    padding:75px 25px;
+    box-shadow:10px 0 30px #000;
+}
+
+.menu.aberto{
+    transform:translateX(0);
+}
+
+.menu h2{
+    color:#e50909;
+    font-style:italic;
+    margin-bottom:30px;
+}
+
+.menu button{
+    position:absolute;
+    right:20px;
+    top:20px;
+    background:none;
+    border:0;
+    color:white;
+    font-size:25px;
+}
+
+.menu a{
+    display:block;
+    padding:17px 5px;
+    border-bottom:1px solid #292929;
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+/* =====================================================
+   PLACAR
+===================================================== */
+
+.ticker{
+    height:32px;
+    background:#e50909;
+    display:flex;
+    align-items:center;
+    overflow:hidden;
+    white-space:nowrap;
+    font-size:11px;
+    font-weight:bold;
+}
+
+.ticker-conteudo{
+    animation:passar 18s linear infinite;
+    display:flex;
+    gap:35px;
+}
+
+@keyframes passar{
+    from{
+        transform:translateX(100%);
+    }
+
+    to{
+        transform:translateX(-100%);
+    }
+}
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero{
+    height:330px;
+    position:relative;
+    padding:25px;
+    display:flex;
+    align-items:end;
+    overflow:hidden;
+    background:
+        radial-gradient(circle at 80% 25%,#e50909 0,transparent 25%),
+        linear-gradient(135deg,#350000,#090909 70%);
+}
+
+.hero:after{
+    content:"⚽";
+    position:absolute;
+    right:-20px;
+    top:30px;
+    font-size:170px;
+    transform:rotate(-20deg);
+    opacity:.7;
+}
+
+.hero-conteudo{
+    position:relative;
+    z-index:2;
+}
+
+.tag{
+    color:#ff4949;
+    font-size:10px;
+    font-weight:bold;
+    letter-spacing:2px;
+}
+
+.hero h1{
+    font-size:34px;
+    line-height:1;
+    margin:10px 0;
+}
+
+.hero p{
+    color:#ccc;
+    font-size:13px;
+    line-height:1.5;
+    max-width:300px;
+    margin-bottom:15px;
+}
+
+.botao-vermelho{
+    border:0;
+    background:#e50909;
+    color:white;
+    font-weight:bold;
+    padding:12px 18px;
+    border-radius:4px;
+}
+
+/* =====================================================
+   ESPORTES
+===================================================== */
+
+.esportes{
+    display:flex;
+    gap:7px;
+    overflow:auto;
+    padding:13px;
+    background:#111;
+}
+
+.esportes button{
+    white-space:nowrap;
+    border:1px solid #333;
+    background:#202020;
+    color:#bbb;
+    padding:9px 13px;
+    border-radius:20px;
+    font-size:11px;
+    font-weight:bold;
+}
+
+.esportes button.ativo{
+    background:white;
+    color:black;
+}
+
+/* =====================================================
+   SEÇÕES
+===================================================== */
+
+.secao{
+    padding:18px 14px;
+}
+
+.titulo-secao{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:15px;
+}
+
+.titulo-secao h2{
+    font-size:20px;
+}
+
+.titulo-secao span{
+    font-size:9px;
+    color:#999;
+}
+
+/* =====================================================
+   JOGOS
+===================================================== */
+
+.jogo{
+    background:#181818;
+    border:1px solid #292929;
+    border-radius:7px;
+    padding:13px;
+    margin-bottom:10px;
+}
+
+.campeonato{
+    color:#888;
+    font-size:9px;
+    margin-bottom:12px;
+    font-weight:bold;
+}
+
+.times{
+    display:grid;
+    grid-template-columns:1fr 50px 1fr;
+    text-align:center;
+    align-items:center;
+}
+
+.time{
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+}
+
+.time strong{
+    font-size:20px;
+}
+
+.time small{
+    color:#999;
+}
+
+.placar{
+    font-size:24px;
+    font-weight:bold;
+}
+
+.ao-vivo{
+    color:#ff3838;
+    font-size:9px;
+    margin-top:12px;
+    font-weight:bold;
+}
+
+/* =====================================================
+   NOTÍCIAS
+===================================================== */
+
+.noticia{
+    display:flex;
+    gap:12px;
+    border-bottom:1px solid #282828;
+    padding:12px 0;
+    cursor:pointer;
+}
+
+.imagem-noticia{
+    width:105px;
+    height:82px;
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:6px;
+    font-size:42px;
+}
+
+.futebol{
+    background:linear-gradient(135deg,#124d22,#061009);
+}
+
+.basquete{
+    background:linear-gradient(135deg,#803800,#170800);
+}
+
+.f1{
+    background:linear-gradient(135deg,#333,#080808);
+}
+
+.noticia h3{
+    font-size:13px;
+    line-height:1.3;
+    margin:5px 0;
+}
+
+.noticia p{
+    color:#777;
+    font-size:9px;
+}
+
+/* =====================================================
+   CLASSIFICAÇÃO
+===================================================== */
+
+.tabela{
+    border:1px solid #292929;
+    border-radius:6px;
+    overflow:hidden;
+}
+
+.linha{
+    display:grid;
+    grid-template-columns:35px 1fr 45px;
+    padding:12px;
+    border-bottom:1px solid #292929;
+    font-size:12px;
+}
+
+.linha:last-child{
+    border-bottom:0;
+}
+
+.cabecalho{
+    background:#1c1c1c;
+    color:#888;
+    font-size:9px;
+}
+
+/* =====================================================
+   MODAIS
+===================================================== */
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:#000c;
+    z-index:200;
+    align-items:end;
+    justify-content:center;
+}
+
+.modal.mostrar{
+    display:flex;
+}
+
+.caixa{
+    width:390px;
+    background:#151515;
+    border-radius:18px 18px 0 0;
+    padding:25px;
+    max-height:90vh;
+    overflow:auto;
+    position:relative;
+}
+
+.fechar{
+    position:absolute;
+    right:18px;
+    top:18px;
+    border:0;
+    background:#292929;
+    color:white;
+    border-radius:50%;
+    width:32px;
+    height:32px;
+}
+
+.caixa h2{
+    font-size:26px;
+    margin:12px 0;
+}
+
+.caixa p{
+    color:#bbb;
+    font-size:14px;
+    line-height:1.6;
+}
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+.formulario{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    margin-top:20px;
+}
+
+.formulario input,
+.formulario select,
+.formulario textarea{
+    background:#222;
+    border:1px solid #383838;
+    color:white;
+    padding:13px;
+    border-radius:5px;
+    outline:none;
+}
+
+.formulario textarea{
+    resize:none;
+    height:100px;
+}
+
+/* =====================================================
+   COMENTÁRIOS
+===================================================== */
+
+.comentario{
+    background:#202020;
+    padding:12px;
+    border-radius:6px;
+    margin-top:8px;
+}
+
+.comentario strong{
+    display:block;
+    margin-bottom:5px;
+}
+
+.comentario p{
+    font-size:12px;
+}
+
+/* =====================================================
+   PAINEL ADMIN
+===================================================== */
+
+.admin-card{
+    background:#1b1b1b;
+    border:1px solid #292929;
+    border-radius:7px;
+    padding:15px;
+    margin-bottom:10px;
+}
+
+.admin-card h3{
+    margin-bottom:7px;
+}
+
+.numero{
+    font-size:28px;
+    font-weight:bold;
+    color:#e50909;
+}
+
+/* =====================================================
+   BARRA INFERIOR
+===================================================== */
+
+.nav-inferior{
+    position:fixed;
+    bottom:0;
+    width:390px;
+    height:68px;
+    background:#080808;
+    border-top:1px solid #292929;
+    display:flex;
+    justify-content:space-around;
+    z-index:80;
+}
+
+.nav-inferior button{
+    background:none;
+    border:0;
+    color:#777;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:5px;
+    font-size:19px;
+}
+
+.nav-inferior button span{
+    font-size:8px;
+}
+
+.nav-inferior button.ativo{
+    color:white;
+}
+
+/* =====================================================
+   BUSCA
+===================================================== */
+
+.busca{
+    display:none;
+    padding:12px;
+    background:#151515;
+}
+
+.busca.mostrar{
+    display:block;
+}
+
+.busca input{
+    width:100%;
+    padding:12px;
+    border:1px solid #333;
+    border-radius:5px;
+    background:#222;
+    color:white;
+}
+
+/* =====================================================
+   DESKTOP
+===================================================== */
+
+@media(min-width:600px){
+
+    body{
+        padding:30px 0;
+    }
+
+    .phone{
+        border-radius:30px;
+        min-height:850px;
+    }
+
+    .topo{
+        border-radius:30px 30px 0 0;
+    }
+
+    .nav-inferior{
+        position:absolute;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="phone">
+
+<!-- =================================================
+     MENU
+================================================= -->
+
+<div class="menu" id="menu">
+
+    <button onclick="fecharMenu()">✕</button>
+
+    <h2>SPORTZONE</h2>
+
+    <a href="#" onclick="inicio()">🏠 Início</a>
+    <a href="#" onclick="abrirJogos()">🔴 Ao vivo</a>
+    <a href="#" onclick="abrirNoticias()">📰 Notícias</a>
+    <a href="#" onclick="abrirClassificacao()">🏆 Classificação</a>
+    <a href="#" onclick="abrirLogin()">👤 Login</a>
+    <a href="#" onclick="abrirAdmin()">⚙️ Painel Admin</a>
+
+</div>
+
+<!-- =================================================
+     TOPO
+================================================= -->
+
+<header class="topo">
+
+    <button class="icone" onclick="abrirMenu()">☰</button>
+
+    <div class="logo">
+        SPORT<span>ZONE</span>
+    </div>
+
+    <button class="icone" onclick="abrirBusca()">⌕</button>
+
+</header>
+
+<!-- =================================================
+     BUSCA
+================================================= -->
+
+<div class="busca" id="busca">
+
+    <input
+        type="text"
+        id="campoBusca"
+        placeholder="Pesquisar notícias, times..."
+        onkeyup="pesquisar()"
+    >
+
+</div>
+
+<!-- =================================================
+     TICKER
+================================================= -->
+
+<div class="ticker">
+
+    <div class="ticker-conteudo">
+
+        <span>🔴 AO VIVO</span>
+
+        <span>⚽ Flamengo 2 x 1 Palmeiras</span>
+
+        <span>🏀 Lakers 108 x 104 Celtics</span>
+
+        <span>🏎️ F1 — GP DO BRASIL</span>
+
+    </div>
+
+</div>
+
+<!-- =================================================
+     CONTEÚDO
+================================================= -->
+
+<main id="conteudo">
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="hero-conteudo">
+
+        <span class="tag">
+            DESTAQUE DO DIA
+        </span>
+
+        <h1>
+            O mundo do esporte em um só lugar
+        </h1>
+
+        <p>
+            Notícias, resultados, jogos ao vivo,
+            classificação e tudo que está acontecendo
+            no mundo esportivo.
+        </p>
+
+        <button
+            class="botao-vermelho"
+            onclick="abrirNoticia('Mercado da Bola')"
+        >
+            LER NOTÍCIA →
+        </button>
+
+    </div>
+
+</section>
+
+<!-- ESPORTES -->
+
+<div class="esportes">
+
+    <button
+        class="ativo"
+        onclick="filtrar('todos',this)"
+    >
+        Todos
+    </button>
+
+    <button
+        onclick="filtrar('futebol',this)"
+    >
+        ⚽ Futebol
+    </button>
+
+    <button
+        onclick="filtrar('basquete',this)"
+    >
+        🏀 NBA
+    </button>
+
+    <button
+        onclick="filtrar('f1',this)"
+    >
+        🏎️ F1
+    </button>
+
+</div>
+
+<!-- AO VIVO -->
+
+<section class="secao">
+
+<div class="titulo-secao">
+
+<h2>🔴 Ao vivo</h2>
+
+<span>VER TODOS</span>
+
+</div>
+
+<div class="jogo">
+
+<div class="campeonato">
+BRASILEIRÃO
+</div>
+
+<div class="times">
+
+<div class="time">
+
+<strong>FLA</strong>
+
+<small>Flamengo</small>
+
+</div>
+
+<div class="placar">
+
+<span id="golFlamengo">2</span>
+x
+<span id="golPalmeiras">1</span>
+
+</div>
+
+<div class="time">
+
+<strong>PAL</strong>
+
+<small>Palmeiras</small>
+
+</div>
+
+</div>
+
+<div class="ao-vivo">
+
+● AO VIVO — <span id="minuto">72</span>'
+
+</div>
+
+</div>
+
+
+<div class="jogo">
+
+<div class="campeonato">
+NBA
+</div>
+
+<div class="times">
+
+<div class="time">
+
+<strong>LAL</strong>
+
+<small>Lakers</small>
+
+</div>
+
+<div class="placar">
+108 x 104
+</div>
+
+<div class="time">
+
+<strong>BOS</strong>
+
+<small>Celtics</small>
+
+</div>
+
+</div>
+
+<div class="ao-vivo">
+● 3º QUARTO
+</div>
+
+</div>
+
+</section>
+
+<!-- NOTÍCIAS -->
+
+<section class="secao">
+
+<div class="titulo-secao">
+
+<h2>📰 Últimas notícias</h2>
+
+<span>MAIS →</span>
+
+</div>
+
+
+<article
+class="noticia"
+data-categoria="futebol"
+onclick="abrirNoticia('Mercado da Bola')"
+>
+
+<div class="imagem-noticia futebol">
+⚽
+</div>
+
+<div>
+
+<span class="tag">
+FUTEBOL
+</span>
+
+<h3>
+Mercado da bola ferve e gigantes anunciam novas contratações
+</h3>
+
+<p>
+Há 8 minutos · 2,4 mil comentários
+</p>
+
+</div>
+
+</article>
+
+
+<article
+class="noticia"
+data-categoria="basquete"
+onclick="abrirNoticia('NBA')"
+>
+
+<div class="imagem-noticia basquete">
+🏀
+</div>
+
+<div>
+
+<span class="tag">
+NBA
+</span>
+
+<h3>
+Craque decide no último segundo em jogo eletrizante
+</h3>
+
+<p>
+Há 21 minutos · 891 comentários
+</p>
+
+</div>
+
+</article>
+
+
+<article
+class="noticia"
+data-categoria="f1"
+onclick="abrirNoticia('Fórmula 1')"
+>
+
+<div class="imagem-noticia f1">
+🏎️
+</div>
+
+<div>
+
+<span class="tag">
+FÓRMULA 1
+</span>
+
+<h3>
+Equipe revela novidades para a próxima corrida
+</h3>
+
+<p>
+Há 34 minutos · 531 comentários
+</p>
+
+</div>
+
+</article>
+
+</section>
+
+<!-- CLASSIFICAÇÃO -->
+
+<section class="secao">
+
+<div class="titulo-secao">
+
+<h2>🏆 Classificação</h2>
+
+<span>BRASILEIRÃO</span>
+
+</div>
+
+<div class="tabela">
+
+<div class="linha cabecalho">
+
+<span>#</span>
+<span>TIME</span>
+<span>PTS</span>
+
+</div>
+
+<div class="linha">
+
+<span>1</span>
+<b>Flamengo</b>
+<strong>48</strong>
+
+</div>
+
+<div class="linha">
+
+<span>2</span>
+<b>Palmeiras</b>
+<strong>46</strong>
+
+</div>
+
+<div class="linha">
+
+<span>3</span>
+<b>Botafogo</b>
+<strong>43</strong>
+
+</div>
+
+<div class="linha">
+
+<span>4</span>
+<b>Atlético-MG</b>
+<strong>39</strong>
+
+</div>
+
+<div class="linha">
+
+<span>5</span>
+<b>São Paulo</b>
+<strong>37</strong>
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+<!-- =================================================
+     MODAL NOTÍCIA
+================================================= -->
+
+<div class="modal" id="modalNoticia">
+
+<div class="caixa">
+
+<button
+class="fechar"
+onclick="fecharModal('modalNoticia')"
+>
+✕
+</button>
+
+<span class="tag">
+NOTÍCIA
+</span>
+
+<h2 id="tituloNoticia">
+Mercado da Bola
+</h2>
+
+<p>
+
+O mercado esportivo está movimentado.
+Grandes clubes estão buscando reforços para
+a próxima temporada.
+
+</p>
+
+<br>
+
+<p>
+
+Nesta simulação, esta área poderia receber
+notícias vindas de um banco de dados real,
+com imagens, vídeos, autores, comentários
+e estatísticas.
+
+</p>
+
+<br>
+
+<button
+class="botao-vermelho"
+onclick="curtir()"
+>
+♥ CURTIR
+<span id="likes">0</span>
+</button>
+
+<hr style="margin:25px 0;border-color:#333">
+
+<h3>💬 Comentários</h3>
+
+<div class="formulario">
+
+<textarea
+id="comentarioTexto"
+placeholder="Escreva um comentário..."
+></textarea>
+
+<button
+class="botao-vermelho"
+onclick="comentar()"
+>
+PUBLICAR
+</button>
+
+</div>
+
+<div id="comentarios"></div>
+
+</div>
+
+</div>
+
+<!-- =================================================
+     LOGIN
+================================================= -->
+
+<div class="modal" id="modalLogin">
+
+<div class="caixa">
+
+<button
+class="fechar"
+onclick="fecharModal('modalLogin')"
+>
+✕
+</button>
+
+<span class="tag">
+SPORTZONE
+</span>
+
+<h2>Entrar</h2>
+
+<div class="formulario">
+
+<input
+id="loginEmail"
+type="email"
+placeholder="Seu e-mail"
+>
+
+<input
+id="loginSenha"
+type="password"
+placeholder="Sua senha"
+>
+
+<button
+class="botao-vermelho"
+onclick="login()"
+>
+ENTRAR
+</button>
+
+<button
+style="background:none;border:0;color:#aaa;padding:10px"
+onclick="abrirCadastro()"
+>
+Ainda não tenho conta
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- =================================================
+     CADASTRO
+================================================= -->
+
+<div class="modal" id="modalCadastro">
+
+<div class="caixa">
+
+<button
+class="fechar"
+onclick="fecharModal('modalCadastro')"
+>
+✕
+</button>
+
+<h2>Criar conta</h2>
+
+<div class="formulario">
+
+<input
+id="cadNome"
+placeholder="Nome"
+>
+
+<input
+id="cadEmail"
+type="email"
+placeholder="E-mail"
+>
+
+<input
+id="cadSenha"
+type="password"
+placeholder="Senha"
+>
+
+<button
+class="botao-vermelho"
+onclick="cadastrar()"
+>
+CRIAR CONTA
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- =================================================
+     PAINEL ADMINISTRATIVO
+================================================= -->
+
+<div class="modal" id="modalAdmin">
+
+<div class="caixa">
+
+<button
+class="fechar"
+onclick="fecharModal('modalAdmin')"
+>
+✕
+</button>
+
+<span class="tag">
+ADMINISTRAÇÃO
+</span>
+
+<h2>Painel SportZone</h2>
+
+<div class="admin-card">
+
+<h3>Usuários</h3>
+
+<div class="numero">
+12.548
+</div>
+
+</div>
+
+<div class="admin-card">
+
+<h3>Notícias publicadas</h3>
+
+<div class="numero">
+1.284
+</div>
+
+</div>
+
+<div class="admin-card">
+
+<h3>Jogos ao vivo</h3>
+
+<div class="numero">
+24
+</div>
+
+</div>
+
+<h3 style="margin:20px 0 10px">
+➕ Criar notícia
+</h3>
+
+<div class="formulario">
+
+<input
+id="novaNoticia"
+placeholder="Título da notícia"
+>
+
+<select id="categoriaNova">
+
+<option>Futebol</option>
+<option>NBA</option>
+<option>Fórmula 1</option>
+
+</select>
+
+<button
+class="botao-vermelho"
+onclick="criarNoticia()"
+>
+PUBLICAR NOTÍCIA
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- =================================================
+     NAVEGAÇÃO
+================================================= -->
+
+<nav class="nav-inferior">
+
+<button
+class="ativo"
+onclick="inicio()"
+>
+⌂
+<span>Início</span>
+</button>
+
+<button onclick="abrirJogos()">
+◉
+<span>Ao vivo</span>
+</button>
+
+<button onclick="abrirNoticias()">
+▣
+<span>Notícias</span>
+</button>
+
+<button onclick="abrirClassificacao()">
+🏆
+<span>Tabela</span>
+</button>
+
+<button onclick="abrirLogin()">
+●
+<span>Perfil</span>
+</button>
+
+</nav>
+
+</div>
+
+<script>
+
+/* =====================================================
+   MENU
+===================================================== */
+
+function abrirMenu(){
+
+    document
+    .getElementById("menu")
+    .classList
+    .add("aberto");
+
+}
+
+function fecharMenu(){
+
+    document
+    .getElementById("menu")
+    .classList
+    .remove("aberto");
+
+}
+
+/* =====================================================
+   BUSCA
+===================================================== */
+
+function abrirBusca(){
+
+    const busca =
+    document.getElementById("busca");
+
+    busca.classList.toggle("mostrar");
+
+    if(busca.classList.contains("mostrar")){
+
+        document
+        .getElementById("campoBusca")
+        .focus();
+
+    }
+
+}
+
+function pesquisar(){
+
+    const texto =
+    document
+    .getElementById("campoBusca")
+    .value
+    .toLowerCase();
+
+    const noticias =
+    document.querySelectorAll(".noticia");
+
+    noticias.forEach(noticia => {
+
+        const conteudo =
+        noticia.innerText.toLowerCase();
+
+        if(conteudo.includes(texto)){
+
+            noticia.style.display="flex";
+
+        }else{
+
+            noticia.style.display="none";
+
+        }
+
+    });
+
+}
+
+/* =====================================================
+   FILTROS
+===================================================== */
+
+function filtrar(categoria,botao){
+
+    document
+    .querySelectorAll(".esportes button")
+    .forEach(b => {
+
+        b.classList.remove("ativo");
+
+    });
+
+    botao.classList.add("ativo");
+
+    document
+    .querySelectorAll(".noticia")
+    .forEach(noticia => {
+
+        if(
+            categoria==="todos" ||
+            noticia.dataset.categoria===categoria
+        ){
+
+            noticia.style.display="flex";
+
+        }else{
+
+            noticia.style.display="none";
+
+        }
+
+    });
+
+}
+
+/* =====================================================
+   NOTÍCIA
+===================================================== */
+
+let quantidadeLikes=0;
+
+function abrirNoticia(titulo){
+
+    document
+    .getElementById("tituloNoticia")
+    .innerText=titulo;
+
+    document
+    .getElementById("modalNoticia")
+    .classList
+    .add("mostrar");
+
+}
+
+function curtir(){
+
+    quantidadeLikes++;
+
+    document
+    .getElementById("likes")
+    .innerText=quantidadeLikes;
+
+}
+
+/* =====================================================
+   COMENTÁRIOS
+===================================================== */
+
+function comentar(){
+
+    const campo =
+    document.getElementById("comentarioTexto");
+
+    const texto =
+    campo.value.trim();
+
+    if(texto===""){
+
+        alert("Digite um comentário.");
+
+        return;
+
+    }
+
+    const div =
+    document.createElement("div");
+
+    div.className="comentario";
+
+    div.innerHTML=`
+        <strong>Usuário SportZone</strong>
+        <p>${texto}</p>
+    `;
+
+    document
+    .getElementById("comentarios")
+    .prepend(div);
+
+    campo.value="";
+
+}
+
+/* =====================================================
+   MODAIS
+===================================================== */
+
+function fecharModal(id){
+
+    document
+    .getElementById(id)
+    .classList
+    .remove("mostrar");
+
+}
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+function abrirLogin(){
+
+    fecharMenu();
+
+    document
+    .getElementById("modalLogin")
+    .classList
+    .add("mostrar");
+
+}
+
+function login(){
+
+    const email =
+    document
+    .getElementById("loginEmail")
+    .value;
+
+    const senha =
+    document
+    .getElementById("loginSenha")
+    .value;
+
+    if(email==="" || senha===""){
+
+        alert("Preencha todos os campos.");
+
+        return;
+
+    }
+
+    alert(
+        "Login realizado com sucesso! 👋"
+    );
+
+    fecharModal("modalLogin");
+
+}
+
+/* =====================================================
+   CADASTRO
+===================================================== */
+
+function abrirCadastro(){
+
+    fecharModal("modalLogin");
+
+    document
+    .getElementById("modalCadastro")
+    .classList
+    .add("mostrar");
+
+}
+
+function cadastrar(){
+
+    const nome =
+    document
+    .getElementById("cadNome")
+    .value;
+
+    const email =
+    document
+    .getElementById("cadEmail")
+    .value;
+
+    const senha =
+    document
+    .getElementById("cadSenha")
+    .value;
+
+    if(
+        nome==="" ||
+        email==="" ||
+        senha===""
+    ){
+
+        alert("Preencha todos os campos.");
+
+        return;
+
+    }
+
+    alert(
+        "Conta criada com sucesso, "+
+        nome+
+        "! 🎉"
+    );
+
+    fecharModal("modalCadastro");
+
+}
+
+/* =====================================================
+   ADMIN
+===================================================== */
+
+function abrirAdmin(){
+
+    fecharMenu();
+
+    document
+    .getElementById("modalAdmin")
+    .classList
+    .add("mostrar");
+
+}
+
+function criarNoticia(){
+
+    const titulo =
+    document
+    .getElementById("novaNoticia")
+    .value;
+
+    const categoria =
+    document
+    .getElementById("categoriaNova")
+    .value;
+
+    if(titulo===""){
+
+        alert("Digite o título.");
+
+        return;
+
+    }
+
+    alert(
+        "Notícia publicada!\n\n"+
+        titulo+
+        "\nCategoria: "+
+        categoria
+    );
+
+    document
+    .getElementById("novaNoticia")
+    .value="";
+
+}
+
+/* =====================================================
+   NAVEGAÇÃO
+===================================================== */
+
+function inicio(){
+
+    fecharMenu();
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+function abrirJogos(){
+
+    fecharMenu();
+
+    window.scrollTo({
+        top:300,
+        behavior:"smooth"
+    });
+
+}
+
+function abrirNoticias(){
+
+    fecharMenu();
+
+    window.scrollTo({
+        top:600,
+        behavior:"smooth"
+    });
+
+}
+
+function abrirClassificacao(){
+
+    fecharMenu();
+
+    window.scrollTo({
+        top:1000,
+        behavior:"smooth"
+    });
+
+}
+
+/* =====================================================
+   SIMULAÇÃO DE JOGO AO VIVO
+===================================================== */
+
+let minuto=72;
+
+setInterval(function(){
+
+    if(minuto<90){
+
+        minuto++;
+
+        document
+        .getElementById("minuto")
+        .innerText=minuto;
+
+    }
+
+},60000);
+
+/* =====================================================
+   TECLA ESC FECHA MODAIS
+===================================================== */
+
+document.addEventListener(
+"keydown",
+function(event){
+
+    if(event.key==="Escape"){
+
+        document
+        .querySelectorAll(".modal")
+        .forEach(modal=>{
+
+            modal.classList.remove("mostrar");
+
+        });
+
+        fecharMenu();
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>                 
+```
